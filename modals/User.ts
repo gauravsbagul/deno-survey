@@ -11,8 +11,14 @@ export default class User {
     this.email = email;
     this.password = password;
   }
-  static findOne(params: object) {
-    return usersCollection.findOne(params);
+  static async findOne(params: object) {
+    const user = await usersCollection.findOne(params);
+    console.log("TCL:: findOne -> user", user);
+
+    user.id = user._id.$oid;
+    delete user._id;
+    console.log("TCL:: findOne -> user", user);
+    return new User(user);
   }
 
   async save() {

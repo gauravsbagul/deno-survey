@@ -1,9 +1,7 @@
 import { MongoClient } from "./deps.ts";
 
 const client = new MongoClient();
-client.connectWithUri(
-  "mongodb+srv://deno-server:3QVjF8RBJnOexoJW@denosurvey.6xj9w.mongodb.net/deno-survey?retryWrites=true&w=majority",
-);
+client.connectWithUri(Deno.env.get("MONGODB_URI")!);
 
 const db = client.database("deno-survey");
 

@@ -14,3 +14,5 @@ app.addEventListener("listen", ({ hostname, port, secure }) => {
   );
 });
 await app.listen({ port: 5000 });
+
+// run cmd - denon run --allow-net --allow-write --allow-read --allow-plugin --allow-env --unstable server.ts

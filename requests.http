@@ -16,3 +16,25 @@ Content-Type: application/json
     "email": "gaurav5@gmail.com",
     "password": "test"
 }
+
+### Surveys 
+### GET all survey
+GET http://localhost:5000/api/survey
+
+## GET single survey
+GET http://localhost:5000/api/survey/id
+
+
+## CREATE survey
+POST http://localhost:5000/api/survey
+Content-Type: application/json
+
+{
+    "name":"Survey 1",
+    "description":"lorem ipsum something"
+}
+
+
+## UPDATE survey
+PUT http://localhost:5000/api/survey/id
+Content-Type: application/json

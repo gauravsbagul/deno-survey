@@ -37,6 +37,17 @@ export default class Survey extends BaseModal {
     return this;
   }
 
+  async update({ name, description }: { name: string; description: string }) {
+    const { modifiedCount } = await surveyCollection.updateOne(
+      { _id: { $oid: this.id } },
+      { name, description },
+    );
+    console.log("TCL:: Survey -> update -> modifiedCount", modifiedCount);
+
+    this.name = name;
+    this.description = description;
+  }
+
   protected static prepare(data: any): Survey {
     data = BaseModal.prepare(data);
     const survey = new Survey(data.userId, data.name, data.description);

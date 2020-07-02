@@ -13,6 +13,10 @@ app.addEventListener("listen", ({ hostname, port, secure }) => {
       "localhost"}:${port}`,
   );
 });
+
+app.addEventListener("error", (e) => {
+  console.log("TCL:: e.error", e.error);
+});
 await app.listen({ port: 5000 });
 
 // run cmd - denon run --allow-net --allow-write --allow-read --allow-plugin --allow-env --unstable server.ts

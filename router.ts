@@ -13,7 +13,7 @@ router
   .get("/api/survey", surveyController.getAllForUSer)
   .get("/api/survey/:id", surveyController.getSingle)
   .post("/api/survey", surveyController.create)
-  .put("/api/survey/:id", surveyController.update)
+  .put("/api/survey/:id", surveyController.update.bind(surveyController))
   .delete("/api/survey/:id", surveyController.delete);
 
 export default router;

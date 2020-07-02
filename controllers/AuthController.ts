@@ -25,6 +25,7 @@ class AuthController {
       return;
     }
     let user = await User.findOne({ email });
+    console.log("TCL:: AuthController -> login -> user", user);
 
     if (!user) {
       ctx.response.status = 422;

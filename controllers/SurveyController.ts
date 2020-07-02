@@ -3,9 +3,22 @@ import Survey from "./../modals/Survey.ts";
 class SurveyController {
   async getAllForUSer(ctx: RouterContext) {
     //@TODO
-    ctx.response.body = await Survey.findByUser("1");
+    const surveys = await Survey.findByUser("1");
+    console.log("TCL:: SurveyController -> getAllForUSer -> surveys", surveys);
+
+    ctx.response.body = surveys;
   }
   async getSingle(ctx: RouterContext) {
+    const id = ctx.params.id!;
+    console.log("TCL:: SurveyController -> getSingle -> id", id);
+    const survey = await Survey.findById(id);
+    if (!survey) {
+      ctx.response.status = 4040;
+      ctx.response.body = { message: "Incorrect Id" };
+      return;
+    }
+    ctx.response.status = 200;
+    ctx.response.body = survey;
   }
   async create(ctx: RouterContext) {
     const { value:{name, description} } = await ctx.request.body();

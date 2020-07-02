@@ -1,11 +1,13 @@
 import { usersCollection } from "./../mongo.ts";
-export default class User {
+import BaseModal from "./BaseModal.ts";
+export default class User extends BaseModal {
   public id: string;
   public name: string;
   public email: string;
   public password: string;
 
   constructor({ id = "", name = "", email = "", password = "" }) {
+    super();
     this.id = id;
     this.name = name;
     this.email = email;
@@ -13,12 +15,7 @@ export default class User {
   }
   static async findOne(params: object) {
     const user = await usersCollection.findOne(params);
-    console.log("TCL:: findOne -> user", user);
-
-    user.id = user._id.$oid;
-    delete user._id;
-    console.log("TCL:: findOne -> user", user);
-    return new User(user);
+    return User.prepare(user);
   }
 
   async save() {
@@ -27,5 +24,10 @@ export default class User {
 
     this.id = $oid;
     return this;
+  }
+  protected static prepare(data: any): User {
+    data = BaseModal.prepare(data);
+    const user = new User(data);
+    return user;
   }
 }

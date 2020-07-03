@@ -52,6 +52,15 @@ export default class Question extends BaseModal {
       { _id: { $oid: this.id } },
     );
   }
+
+  isText(): boolean {
+    return this.type === QuestionType.TEXT;
+  }
+
+  isChoice(): boolean {
+    return this.text === QuestionType.CHOICE;
+  }
+
   protected static prepare(data: any): Question {
     data = BaseModal.prepare(data);
     const question = new Question(

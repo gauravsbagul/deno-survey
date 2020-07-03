@@ -9,7 +9,7 @@ const router = new Router();
 router
   .get("/", siteController.surveys)
   .get("/survey/:id", siteController.viewSurvey)
-  // .post("/survey/:id", siteController.submitSurvey)
+  .post("/survey/:id", siteController.submitSurvey)
   // Login and registration
   .post("/api/register", authController.register)
   .post("/api/login", authController.login)

@@ -11,10 +11,7 @@ app.use(router.allowedMethods());
 
 app.addEventListener("listen", ({ hostname, port, secure }) => {
   console.log("TCL:: secure", secure);
-  console.log(
-    `listening on ${secure ? "https://" : "http://"}${hostname ||
-      "localhost"}:${port}`,
-  );
+  newFunction(secure, hostname, port);
 });
 
 app.addEventListener("error", (e) => {
@@ -22,6 +19,16 @@ app.addEventListener("error", (e) => {
 });
 await app.listen({ port: 5000 });
 
+function newFunction(
+  secure: boolean,
+  hostname: string | undefined,
+  port: number,
+) {
+  console.log(
+    `listening on ${secure ? "https://" : "http://"}${hostname ||
+      "localhost"}:${port}`,
+  );
+}
 // run cmd - denon run --allow-net --allow-write --allow-read --allow-plugin --allow-env --unstable server.ts
 
 //https://www.youtube.com/watch?v=TQUy8ENesGY&t=317s

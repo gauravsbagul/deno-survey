@@ -10,13 +10,14 @@ export default class Survey extends BaseModal {
     super();
   }
 
+  static async findAll(): Promise<Survey[]> {
+    const surveys = await surveyCollection.find();
+    return await surveys.map((survey: any) => Survey.prepare(survey));
+  }
+
   static async findByUser(userId: string): Promise<Survey[]> {
     const surveys = await surveyCollection.find({ userId });
-
-    const surveysArray = await surveys.map((survey: any) =>
-      Survey.prepare(survey)
-    );
-    return surveysArray;
+    return await surveys.map((survey: any) => Survey.prepare(survey));
   }
 
   static async findById(id: string): Promise<Survey | null> {

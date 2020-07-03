@@ -2,6 +2,8 @@ export {
   Application,
   Router,
   RouterContext,
+  Context,
+  send,
 } from "https://deno.land/x/oak@v5.3.1/mod.ts";
 
 export { MongoClient } from "https://deno.land/x/mongo@v0.8.0/mod.ts";
@@ -20,3 +22,5 @@ export {
 } from "https://deno.land/x/djwt@v0.9.0/create.ts";
 
 import "https://deno.land/x/dotenv@v0.5.0/load.ts";
+
+export { renderFileToString } from "https://deno.land/x/dejs@0.7.0/mod.ts";

@@ -47,7 +47,6 @@ class QuestionController extends BaseSurveyController {
   async delete(ctx: RouterContext) {
     const id = ctx.params.id!;
     const question = await Question.findById(id);
-    console.log("TCL:: QuestionController -> delete -> question", question);
 
     if (!question) {
       ctx.response.status = 404;
@@ -55,7 +54,6 @@ class QuestionController extends BaseSurveyController {
       return;
     }
     const result = await question.delete();
-    console.log("TCL:: QuestionController -> delete -> result", result);
     ctx.response.status = 204;
     ctx.response.body = { message: "Question deleted successfully" };
   }

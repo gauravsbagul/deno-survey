@@ -1,7 +1,10 @@
 import { Application, Router, RouterContext } from "./deps.ts";
 import router from "./router.ts";
+import { staticFileMiddleware } from "./middlewares/staticFileMiddleware.ts";
 
 const app = new Application();
+
+app.use(staticFileMiddleware);
 
 app.use(router.routes());
 app.use(router.allowedMethods());

@@ -37,7 +37,7 @@ export default class Survey extends BaseModal {
   async update({ name, description }: { name: string; description: string }) {
     const { modifiedCount } = await surveyCollection.updateOne(
       { _id: { $oid: this.id } },
-      { name, description },
+      { $set: { name, description } },
     );
 
     this.name = name;

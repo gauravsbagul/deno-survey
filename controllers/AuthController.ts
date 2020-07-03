@@ -39,7 +39,7 @@ class AuthController {
     }
     const payload: Payload = {
       iss: user.email,
-      exp: setExpiration(new Date().getTime() + 60 * 60 * 1000),
+      exp: setExpiration(new Date().getTime() + 60 * 60 * 1000000),
     };
     const jwt = makeJwt(
       { key: Deno.env.get("JWT_SECRET_KEY")!, header, payload },

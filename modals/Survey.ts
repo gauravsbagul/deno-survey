@@ -2,7 +2,6 @@ import { surveyCollection } from "./../mongo.ts";
 import BaseModal from "./BaseModal.ts";
 export default class Survey extends BaseModal {
   public id: string = "";
-
   constructor(
     public userId: string,
     public name: string,
@@ -17,13 +16,11 @@ export default class Survey extends BaseModal {
     const surveysArray = await surveys.map((survey: any) =>
       Survey.prepare(survey)
     );
-    console.log("TCL:: Survey -> findByUser -> surveysArray", surveysArray);
     return surveysArray;
   }
 
   static async findById(id: string): Promise<Survey | null> {
     const survey = await surveyCollection.findOne({ _id: { $oid: id } });
-    console.log("TCL:: Survey -> survey", survey);
     if (!survey) {
       return null;
     }
@@ -42,10 +39,15 @@ export default class Survey extends BaseModal {
       { _id: { $oid: this.id } },
       { name, description },
     );
-    console.log("TCL:: Survey -> update -> modifiedCount", modifiedCount);
 
     this.name = name;
     this.description = description;
+  }
+
+  delete(id: string) {
+    return surveyCollection.deleteOne(
+      { _id: { $oid: id } },
+    );
   }
 
   protected static prepare(data: any): Survey {

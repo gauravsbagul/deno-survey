@@ -20,3 +20,5 @@ app.addEventListener("error", (e) => {
 await app.listen({ port: 5000 });
 
 // run cmd - denon run --allow-net --allow-write --allow-read --allow-plugin --allow-env --unstable server.ts
+
+//https://www.youtube.com/watch?v=TQUy8ENesGY&t=317s

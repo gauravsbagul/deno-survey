@@ -1,34 +1,32 @@
 import { RouterContext } from "../deps.ts";
 import Survey from "./../modals/Survey.ts";
 import BaseSurveyController from "./BaseSurveyController.ts";
+import User from "../modals/User.ts";
 class SurveyController extends BaseSurveyController {
   async getAllForUSer(ctx: RouterContext) {
     //@TODO
-    const surveys = await Survey.findByUser("1");
-    console.log("TCL:: SurveyController -> getAllForUSer -> surveys", surveys);
+    const user = ctx.state.user as User;
+    const surveys = await Survey.findByUser(user.id);
 
     ctx.response.body = surveys;
   }
   async getSingle(ctx: RouterContext) {
     const id = ctx.params.id!;
-    const survey = await Survey.findById(id);
-    if (!survey) {
-      ctx.response.status = 404;
-      ctx.response.body = { message: "Incorrect Id" };
-      return;
+    const survey = await this.findSurveyOrFail(id, ctx);
+    if (survey) {
+      ctx.response.body = survey;
     }
-    ctx.response.status = 200;
-    ctx.response.body = survey;
   }
   async create(ctx: RouterContext) {
     const { value:{name, description} } = await ctx.request.body();
+    const user = ctx.state.user as User;
     if (!name || !description) {
       ctx.response.status = 422;
       ctx.response.body = { message: "Please provide name and description" };
       return;
     }
     //@TODO
-    const survey = new Survey("1", name, description);
+    const survey = new Survey(user.id, name, description);
     await survey.create();
     ctx.response.status = 201;
     ctx.response.body = survey;
@@ -37,21 +35,22 @@ class SurveyController extends BaseSurveyController {
     const id = ctx.params.id!;
 
     const survey = await this.findSurveyOrFail(id, ctx);
-    console.log("TCL:: SurveyController -> update -> survey", survey);
 
     if (survey) {
       const { value:{name, description} } = await ctx.request.body();
-      console.log(
-        "TCL:: SurveyController -> update -> description",
-        description,
-      );
-      console.log("TCL:: SurveyController -> update -> name", name);
-
       await survey.update({ name, description });
       ctx.response.body = survey;
     }
   }
   async delete(ctx: RouterContext) {
+    const id = ctx.params.id!;
+
+    const survey = await this.findSurveyOrFail(id, ctx);
+    if (survey) {
+      await survey.delete(id);
+      ctx.response.status = 204;
+      ctx.response.body = { message: "Survey deleted successfully" };
+    }
   }
 }
 

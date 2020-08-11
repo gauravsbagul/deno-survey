@@ -29,7 +29,7 @@ function newFunction(
       "localhost"}:${port}`,
   );
 }
-// run cmd - denon run --allow-net --allow-write --allow-read --allow-plugin --allow-env --unstable server.ts
+// run cmd :-> denon run --allow-net --allow-write --allow-read --allow-plugin --allow-env --unstable server.ts
 
 //https://www.youtube.com/watch?v=TQUy8ENesGY&t=317s
 
